@@ -29,6 +29,9 @@ public class Login {
 		System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		//Chrome
+//		System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/chromedriver");
+//		driver= new ChromeDriver();
 
 	}
 

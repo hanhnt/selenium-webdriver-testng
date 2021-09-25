@@ -8,6 +8,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="Libraries/selenium-server-standalone-3.141.59.jar" sourcepath="Libraries/client-combined-3.141.59-sources.jar"/>
-	<classpathentry kind="lib" path="Libraries/testng-6.14.3.jar"/>
+	<classpathentry kind="lib" path="Libraries/testng-6.14.3.jar" sourcepath="Libraries/client-combined-3.141.59-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
