@@ -47,18 +47,6 @@ public class Topic06_ElementExercise {
 	}
 
 	@Test
-	public void tc01IsDisplay() {
-		WebElement txtEmail = driver.findElement(By.id("mail"));
-		if (txtEmail.isDisplayed()) {
-			System.out.println("Email textbox display");
-		} else
-			System.out.println("Email textbox is not display");
-		WebElement radioAgeUnder18 = driver.findElement(By.id("under_18"));
-		WebElement txtEducation = driver.findElement(By.id("edu"));
-
-	}
-
-	@Test
 	public void tc01IsDisplayRefactor() {
 		Assert.assertTrue(isElementDisplay(txtEmail));
 		Assert.assertTrue(isElementDisplay(radioAgeUnder18));
