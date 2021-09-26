@@ -23,12 +23,16 @@ public class Login {
 	By txtPassword = By.name("login[password]");
 	By errorEmailMsg = By.id("advice-validate-email-email");
 	By errorPassword = By.id("advice-validate-password-pass");
+	String firstName, lastName, middleName;
 
 	@BeforeClass
 	public void beforeClass() {
 		System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		firstName="User4";
+		lastName="Le";
+		middleName="Thi";
 		//Chrome
 //		System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/chromedriver");
 //		driver= new ChromeDriver();
@@ -41,7 +45,7 @@ public class Login {
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
 	}
 
-	@Test
+	//@Test
 	public void loginWithEmptyEmailAndPass() {
 		driver.findElement(btnLogin).click();
 		Assert.assertEquals(driver.findElement(By.id("advice-required-entry-email")).getText(),
@@ -50,7 +54,7 @@ public class Login {
 				"This is a required field.");
 	}
 
-	@Test
+	//@Test
 	public void loginWithInvalidEmail() {
 		driver.findElement(txtEmail).sendKeys("1234@123123");
 		driver.findElement(txtPassword).sendKeys("123456");
@@ -59,7 +63,7 @@ public class Login {
 				"Please enter a valid email address. For example johndoe@domain.com.");
 	}
 
-	@Test
+	//@Test
 	public void loginWithPasswordLessThan6() {
 		// driver.findElement(txtEmail).clear();
 		driver.findElement(txtEmail).sendKeys("automation@gmail.com");
@@ -70,7 +74,7 @@ public class Login {
 				"Please enter 6 or more characters without leading or trailing spaces.");
 	}
 
-	@Test
+	//@Test
 	public void loginWithIncorrectEmailPassword() {
 		driver.findElement(txtEmail).sendKeys("automation@gmail.com");
 		// driver.findElement(txtPassword).clear();
@@ -80,7 +84,7 @@ public class Login {
 				"Invalid login or password.");
 	}
 
-	@Test
+	//@Test
 	public void registerAccount() {
 		driver.findElement(By.xpath("//div[@class='footer']//a[@title='My Account']")).click();
 		Random randomGenerator = new Random();
@@ -98,13 +102,13 @@ public class Login {
 	}
 	@Test
 	public void loginWithValidEmailAndPass() {
-		driver.findElement(txtEmail).sendKeys("user1@gmail.com");
+		driver.findElement(txtEmail).sendKeys("user4@gmail.com");
 		driver.findElement(txtPassword).sendKeys("12345678");
 		driver.findElement(btnLogin).click();
-		driver.findElement(By.xpath("//div[@class='page-title']/h1")).getText();
 		Assert.assertEquals(driver.findElement(By.xpath("//div[@class='page-title']/h1")).getText(), "MY DASHBOARD");
-		Assert.assertEquals(driver.findElement(By.xpath("//p[@class='hello']")).getText(), "Hello, Test Test Test!");
-		Assert.assertTrue(driver.findElement(By.xpath("//div[@class='box-content' and contains(.,'Change Password')]")).isDisplayed());			
+		Assert.assertEquals(driver.findElement(By.xpath("//p[@class='hello']")).getText(), "Hello, "+firstName+ " " +middleName+" "+ lastName+"!");
+		String infoUser= driver.findElement(By.xpath("//h3[text()='Contact Information']/parent ::div[@class='box-title']/following-sibling::div")).getText();
+		Assert.assertTrue(infoUser.contains(firstName+" "+middleName+" "+lastName));			
 		
 	}
 
