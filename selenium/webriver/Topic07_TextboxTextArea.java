@@ -36,7 +36,7 @@ public class Topic07_TextboxTextArea {
 		name = "hanh";
 		gender = "female";
 		dateOfBirthInput = "01/01/1991";
-		dateOfBirthOutput = "01-01-1991";
+		dateOfBirthOutput = "1991-01-01";
 		addressInput = "123 Le Loi \nDa Nang";
 		addressOutput = "123 Le Loi Da Nang";
 		cityInput = "Da Nang";
@@ -59,37 +59,30 @@ public class Topic07_TextboxTextArea {
 	}
 
 	@Test
-	public void register() {
+	public void TC01_Register() {
 		loginUrl = driver.getCurrentUrl();
 		driver.findElement(By.xpath("//a[text()='here']")).click();
 		driver.findElement(By.name("emailid")).sendKeys(emailInput);
 		driver.findElement(By.name("btnLogin")).click();
 		userId = driver.findElement(By.xpath("//td[text()='User ID :']/following-sibling::td")).getText();
 		password = driver.findElement(By.xpath("//td[text()='Password :']/following-sibling::td")).getText();
+	}
+
+	@Test
+	public void TC02_Login() {
 		driver.get(loginUrl);
 		driver.findElement(By.name("uid")).sendKeys(userId);
 		driver.findElement(By.name("password")).sendKeys(password);
 		driver.findElement(By.name("btnLogin")).click();
-		Assert.assertEquals(driver.findElement(By.xpath("//marquee[@class='heading3']")).getText(),
-				"Welcome To Manager's Page of Guru99 Bank");
+		Assert.assertEquals(driver.findElement(By.xpath("//marquee[@class='heading3']")).getText(), "Welcome To Manager's Page of Guru99 Bank");		
 	}
-
-//	@Test
-//	public void login() {
-//		//driver.get(loginUrl);
-//		driver.findElement(By.name("uid")).sendKeys(userId);
-//		driver.findElement(By.name("password")).sendKeys(password);
-//		driver.findElement(By.name("btnLogin")).click();
-//		Assert.assertEquals(driver.findElement(By.xpath("//marquee[@class='heading3']")).getText(), "Welcome To Manager's Page of Guru99 Bank");		
-//	}
 	@Test
-	public void newCustomer() {
+	public void TC03_NewCustomer() {
 		driver.findElement(By.xpath("//a[contains(text(),'New Customer')]")).click();
 		driver.findElement(By.name("name")).sendKeys(name);
 		driver.findElement(By.xpath("//input[@value='f']")).click();
 
 		jsExecutor.executeScript("arguments[0].removeAttribute('type' )", driver.findElement(txtDateOfBirth));
-		sleepInSecond(5);
 
 		driver.findElement(txtDateOfBirth).sendKeys(dateOfBirthInput);
 		driver.findElement(address).sendKeys(addressInput);
@@ -100,6 +93,7 @@ public class Topic07_TextboxTextArea {
 		driver.findElement(By.name("emailid")).sendKeys(emailInput);
 		driver.findElement(By.name("password")).sendKeys(password);
 		driver.findElement(By.name("sub")).click();
+		
 		Assert.assertEquals(driver.findElement(By.xpath("//p[@class='heading3']")).getText(),
 				"Customer Registered Successfully!!!");
 		Assert.assertEquals(
@@ -121,13 +115,16 @@ public class Topic07_TextboxTextArea {
 		Assert.assertEquals(driver.findElement(By.xpath("//td[text()='Email']/following-sibling::td")).getText(),
 				emailInput);
 		customerIdInput = driver.findElement(By.xpath("//td[text()='Customer ID']/following-sibling::td")).getText();
+		
 	}
-
-	public void editCustomer() {
+	@Test
+	public void TC04_EditCustomer() {
+		driver.findElement(By.xpath("//a[text()='Edit Customer']")).click();
 		driver.findElement(By.name("cusid")).sendKeys(customerIdInput);
 		driver.findElement(By.name("AccSubmit")).click();
-		String customerName = driver.findElement(By.xpath("//td[text()='Customer Name']/following-sibling::td"))
+		String customerName = driver.findElement(By.xpath("//td[text()='Customer Name']/following-sibling::td/input"))
 				.getAttribute("value");
+		System.out.print("customerName"+customerName);
 		Assert.assertEquals(customerName, name);
 		String addressEdit = driver.findElement(By.xpath("//td[text()='Address']/following-sibling::td")).getText();
 		Assert.assertEquals(addressEdit, addressInput);
@@ -146,7 +143,7 @@ public class Topic07_TextboxTextArea {
 		driver.findElement(btnSubmit).click();
 
 		Assert.assertEquals(driver.findElement(By.xpath("//td[text()='Address']/following-sibling::td")).getText(),
-				addressOutput);
+			editAddressOutput);
 		Assert.assertEquals(driver.findElement(By.xpath("//td[text()='City']/following-sibling::td")).getText(),
 				editCity);
 		Assert.assertEquals(driver.findElement(By.xpath("//td[text()='State']/following-sibling::td")).getText(),
@@ -172,8 +169,8 @@ public class Topic07_TextboxTextArea {
 			e.printStackTrace();
 		}
 	}
-//	@AfterClass
-//	public void afterClass() {
-//		driver.quit();
-//	}
+	@AfterClass
+	public void afterClass() {
+		driver.quit();
+	}
 }
