@@ -1,5 +1,6 @@
 package webriver;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -78,7 +79,7 @@ public class Topic09_ButtonRadioCheckBoxDefault {
 		selectElementDefault(radioPetro);
 		Assert.assertTrue(driver.findElement(radioPetro).isSelected());
 	}
-	@Test
+	
 	public void TC03_CheckboxRadioCustom() {
 		driver.get("https://material.angular.io/components/radio/examples");
 		By radioSummer= By.cssSelector("input#mat-radio-2-input");
@@ -99,6 +100,20 @@ public class Topic09_ButtonRadioCheckBoxDefault {
 		unSelectElementCustom(chbIndeterminate);
 		Assert.assertFalse(driver.findElement(chbIndeterminate).isSelected());
 	}
+	@Test
+	public void TC04_CheckboxAndRadioButtonOnGoogleForm() {
+		driver.get("https://docs.google.com/forms/d/e/1FAIpQLSfiypnd69zhuDkjKgqvpID9kwO29UCzeCVrGGtbNPZXQok0jA/viewform");
+		By chbDanang= By.xpath("//div[@aria-label='Đà Nẵng']");
+		selectElementDefault(chbDanang);
+		Assert.assertEquals(driver.findElement(chbDanang).getAttribute("aria-checked"), "true");
+		
+		List<WebElement> allCheckbox = driver.findElements(By.cssSelector("div[role='checkbox']"));
+		for (WebElement element: allCheckbox ) {
+			element.click();
+			Assert.assertEquals(element.getAttribute("aria-checked"), "true");
+		}
+	}
+	
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
