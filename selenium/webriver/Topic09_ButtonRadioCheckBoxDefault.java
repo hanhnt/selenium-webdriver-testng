@@ -64,19 +64,70 @@ public class Topic09_ButtonRadioCheckBoxDefault {
 		Assert.assertEquals(driver.findElement(By.xpath("//div[@class='fhs-input-box fhs-input-display checked-error']//div[@class='fhs-input-alert']")).getText(), "Thông tin này không thể để trống");
 		
 }
-	@Test
+	
 	public void TC02_CheckboxRadioDefault() {
 		driver.get("https://demos.telerik.com/kendo-ui/checkbox/index");
-		elementSelect(By.xpath("//label[text()='Luggage compartment cover']/preceding-sibling::input[@id='eq3']"));
+		By chbLuggage=By.xpath("//label[text()='Luggage compartment cover']/preceding-sibling::input");
+		selectElementDefault(chbLuggage);
+		Assert.assertTrue(driver.findElement(chbLuggage).isSelected());
+		elementUnSelect(chbLuggage);
+		Assert.assertFalse(driver.findElement(chbLuggage).isSelected());
+		
+		driver.get("https://demos.telerik.com/kendo-ui/radiobutton/index");
+		By radioPetro=By.xpath("//label[text()='2.0 Petrol, 147kW']/preceding-sibling::input");
+		selectElementDefault(radioPetro);
+		Assert.assertTrue(driver.findElement(radioPetro).isSelected());
+	}
+	@Test
+	public void TC03_CheckboxRadioCustom() {
+		driver.get("https://material.angular.io/components/radio/examples");
+		By radioSummer= By.cssSelector("input#mat-radio-2-input");
+		selectElementCustom(radioSummer);
+		Assert.assertTrue(driver.findElement(radioSummer).isSelected());
+		
+		driver.get("https://material.angular.io/components/checkbox/examples");
+		By chbChecked=By.cssSelector("input#mat-checkbox-1-input");
+		selectElementCustom(chbChecked);
+		Assert.assertTrue(driver.findElement(chbChecked).isSelected());
+		unSelectElementCustom(chbChecked);
+		Assert.assertFalse(driver.findElement(chbChecked).isSelected());
+		
+		driver.get("https://material.angular.io/components/checkbox/examples");
+		By chbIndeterminate=By.cssSelector("input#mat-checkbox-2-input");
+		selectElementCustom(chbIndeterminate);
+		Assert.assertTrue(driver.findElement(chbIndeterminate).isSelected());
+		unSelectElementCustom(chbIndeterminate);
+		Assert.assertFalse(driver.findElement(chbIndeterminate).isSelected());
 	}
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
 	}
 	
-	public void elementSelect(By by) {
+	public void selectElementCustom(By by) {
+		WebElement elment =driver.findElement(by);
+		if(!elment.isSelected()) {
+		jsExecute.executeScript("arguments[0].click();", elment);
+		}
+	}
+	
+	public void unSelectElementCustom(By by) {
+		WebElement elment =driver.findElement(by);
+		if(elment.isSelected()) {
+		jsExecute.executeScript("arguments[0].click();", elment);
+		}
+	}
+	
+	public void selectElementDefault(By by) {
 		WebElement element= driver.findElement(by);
 		if(!element.isSelected()) {
+			element.click();
+		}		
+	}
+	
+	public void elementUnSelect(By by) {
+		WebElement element= driver.findElement(by);
+		if(element.isSelected()) {
 			element.click();
 		}		
 	}
