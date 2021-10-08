@@ -56,7 +56,7 @@ public class Topic09_ButtonRadioCheckBoxDefault {
 		driver.findElement(By.className("fhs_top_account_login_button")).click();
 		
 		//remove attribute login button
-		jsExecute.executeScript("arguments[0].removeAttribute('disable');", driver.findElement(btnLogin));
+		jsExecute.executeScript("arguments[0].removeAttribute('disabled');", driver.findElement(btnLogin));
 		sleepInSecond(10);
 		
 		Assert.assertTrue(driver.findElement(btnLogin).isEnabled());
@@ -79,7 +79,7 @@ public class Topic09_ButtonRadioCheckBoxDefault {
 		selectElementDefault(radioPetro);
 		Assert.assertTrue(driver.findElement(radioPetro).isSelected());
 	}
-	
+	@Test
 	public void TC03_CheckboxRadioCustom() {
 		driver.get("https://material.angular.io/components/radio/examples");
 		By radioSummer= By.cssSelector("input#mat-radio-2-input");
@@ -100,7 +100,7 @@ public class Topic09_ButtonRadioCheckBoxDefault {
 		unSelectElementCustom(chbIndeterminate);
 		Assert.assertFalse(driver.findElement(chbIndeterminate).isSelected());
 	}
-	@Test
+	
 	public void TC04_CheckboxAndRadioButtonOnGoogleForm() {
 		driver.get("https://docs.google.com/forms/d/e/1FAIpQLSfiypnd69zhuDkjKgqvpID9kwO29UCzeCVrGGtbNPZXQok0jA/viewform");
 		By chbDanang= By.xpath("//div[@aria-label='Đà Nẵng']");
