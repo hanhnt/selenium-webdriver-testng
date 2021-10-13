@@ -57,7 +57,7 @@ public class Topic11_Action {
 			key=Keys.COMMAND;
 		} else {key=Keys.CONTROL;}
 	}
-
+	@Test
 	public void TC01_hoverToElement() {
 		driver.get("https://automationfc.github.io/jquery-tooltip/");
 		action.moveToElement(driver.findElement(By.id("age"))).perform();
@@ -125,7 +125,7 @@ public class Topic11_Action {
 		String hexa= org.openqa.selenium.support.Color.fromString(rgba).asHex();
 		Assert.assertEquals(hexa, "#03a9f4");
 	}
-	@Test
+	
 	public void TC08_dragDropElementHTML5ByCSS() throws IOException {
 		driver.get("https://automationfc.github.io/drag-drop-html5/");
 		String jsHelperContentFile = getContentFile(jsHelperPath);
