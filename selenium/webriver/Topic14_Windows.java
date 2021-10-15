@@ -21,20 +21,16 @@ public class Topic14_Windows {
 //		System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
 //		driver = new FirefoxDriver();
 		// Chrome
-				System.setProperty("webdriver.chrome.driver", projectPath + "/browserDrivers/chromedriver");
-				driver = new ChromeDriver();
-		
-		
+		System.setProperty("webdriver.chrome.driver", projectPath + "/browserDrivers/chromedriver");
+		driver = new ChromeDriver();		
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();		
 	}
 	
 	public void TC01_window() {
 		driver.get("https://automationfc.github.io/basic-form/index.html");
-		String parentID=driver.getWindowHandle();
-		
-		driver.findElement(By.xpath("//a[text()='GOOGLE']")).click();
-				
+		String parentID=driver.getWindowHandle();		
+		driver.findElement(By.xpath("//a[text()='GOOGLE']")).click();				
 		switchWindows(parentID);
 		String googlePageID=driver.getWindowHandle();
 		Assert.assertEquals(driver.getTitle(), "Google");
@@ -69,7 +65,6 @@ public class Topic14_Windows {
 		Assert.assertEquals("https://tiki.vn/", urlPage);
 		closeAllWindowWithoutParentWindow(parentPage);
 	}
-	
 	
 	public void switchWindows(String windowID) {
 		Set<String> allWindows=driver.getWindowHandles();
