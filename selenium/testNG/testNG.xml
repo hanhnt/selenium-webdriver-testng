@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite parallel="false" name="Suite">
+<parameter name="url" value="https://www.google.com/"></parameter>
+	<test name="Run on Firefox">
+		<parameter name="browser" value="firefox"></parameter>
+
+		<!-- <groups>-->
+		<!-- <run>-->
+		<!-- <include name="admin"></include>-->
+		<!-- </run>-->
+		<!-- </groups>-->
+
+		<!-- <packages>-->
+		<!--<package name="testNG"/>-->
+		<!-- </packages>-->
+
+		<classes>
+			<class name="testNG.Topic02_Group" />
+		</classes>
+	</test>
+
+	<test name="Run on Chrome">
+		<parameter name="browser" value="chrome" />
+		<classes>
+			<class name="testNG.Topic02_Group" />
+		</classes>
+	</test>
+
+
+</suite>
